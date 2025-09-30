@@ -1,4 +1,4 @@
-vinyl-shop
+# vinyl-shop
 ### A website for selling vinyl records.
 The main feature is a page with a list of albums, including a search field by title, artist, and genre. 
 
@@ -333,3 +333,4 @@ Example response body:
   "returns": "14 days policy"
 }
 ```
+
