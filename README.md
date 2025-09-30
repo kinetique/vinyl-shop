@@ -334,3 +334,4 @@ Example response body:
 }
 ```
 
+![Database Scheme](scheme/database_diagram.png)
