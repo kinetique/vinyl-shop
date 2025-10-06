@@ -22,11 +22,13 @@ Users should also be able to add albums to their cart and then press “Buy” t
 
 Finally, the site should include an “About Us” page with contact details, delivery information, and return policies.
 
-## Endpoints description
-### Albums
+---
+# Endpoints description
+## Albums
 
-```GET /albums``` 
-list of albums with search & filtering
+---
+## ```GET /albums``` 
+### list of albums with search & filtering
 
 Query params:
 
@@ -57,8 +59,9 @@ Example response body:
 ``` 
 []
 ```
-
-``` GET /albums/{id}``` get details of a specific album
+---
+## ``` GET /albums/{id}```
+### get details of a specific album
 
 Response status: '200 OK'
 
@@ -75,13 +78,27 @@ Example response body:
   "style": "Electropop / Rap Rock",
   "price": 45,
   "available": true,
-  "tracks": ["Heavydirtysoul", "Stressed Out", "Ride", "Fairly Local", "Tear in My Heart"]
+  "tracksIds": [1, 2, 3, 4, 5]
 }
 ```
 
 Response status: '404 Not Found' - if album doesn't exist.
 
-``` POST /albums ``` (admin) add a new album
+---
+## ``` GET /albums/{id}/tracks ```
+### get names of tracks
+
+Response status: '200 OK'
+
+```
+[
+  { "id": 1, "title": "Heavydirtysoul" },
+  { "id": 2, "title": "Stressed Out" }
+]
+```
+---
+## ``` POST /albums ``` 
+### (admin) add a new album
 
 Request body:
 
@@ -94,23 +111,45 @@ Request body:
   "genre": "Alternative Rock",
   "style": "Pop Rock",
   "price": 50,
-  "tracks": ["Good Day", "Shy Away", "Choker", "The Outside"]
+  "tracksIds": [1, 2, 3, 4]"]
 }
 ```
 Response status: '201 Created'
 
-``` PUT /albums/{id} ``` (admin) update album data
+Response body:
+```
+{
+  "id": 4,
+  "title": "Scaled and Icy",
+  "artistId": 1,
+  "labelId": 2,
+  "year": 2021,
+  "genre": "Alternative Rock",
+  "style": "Pop Rock",
+  "price": 50,
+  "available": true
+}
+```
+---
+## ``` PUT /albums/{id} ``` 
+### (admin) update album data
 
 Request body: same as POST
 
 Response status: '200 OK'
 
-``` DELETE /albums/{id} ``` (admin) delete album
+---
+## ``` DELETE /albums/{id} ``` 
+### (admin) delete album
 
 Response status: '204 No Content'
 
-### Artists
-``` GET /artists ``` lList of artists
+---
+## Artists
+
+---
+## ``` GET /artists ``` 
+### list of artists
 
 Response status: '200 OK'
 
@@ -118,8 +157,9 @@ Example response body:
 ```
 [ { "id": 1, "name": "Twenty One Pilots" } ]
 ```
-
-``` GET /artists/{id}``` get artist details with their albums
+---
+## ``` GET /artists/{id}``` 
+### get artist details with their albums
 
 Response status: 200 OK
 
@@ -139,7 +179,9 @@ Example response body:
 ```
 Response status: '404 Not Found' – artist does not exist
 
-```POST /artists``` (admin) add a new artist
+---
+## ```POST /artists``` 
+### (admin) add a new artist
 
 Request body:
 ```
@@ -147,7 +189,9 @@ Request body:
 ```
 Response status: '201 Created'
 
-``` PUT /artists/{id} ``` (admin) edit artist
+---
+## ``` PUT /artists/{id} ``` 
+### (admin) edit artist
 
 Request body:
 ```
@@ -156,12 +200,18 @@ Request body:
 
 Response status: '200 OK'
 
-``` DELETE /artists/{id} ``` (admin) delete artist
+---
+## ``` DELETE /artists/{id} ``` 
+### (admin) delete artist
 
 Response status: '204 No Content'
 
-### Labels
-``` GET /labels ``` list of labels
+---
+## Labels
+
+---
+## ``` GET /labels ``` 
+### list of labels
 
 Response status: '200 OK'
 
@@ -169,8 +219,9 @@ Example response body:
 ```
 [ { "id": 2, "name": "Fueled by Ramen" } ]
 ```
-
-```GET /labels/{id}``` label details with albums
+---
+## ```GET /labels/{id}``` 
+### label details with albums
 
 Response status: '200 OK'
 
@@ -189,7 +240,9 @@ Example response body:
 
 Response status: '404 Not Found'
 
-``` POST /labels ``` (admin) add a new label
+---
+## ``` POST /labels ``` 
+### (admin) add a new label
 
 Request body:
 ```
@@ -198,18 +251,26 @@ Request body:
 
 Response status: '201 Created'
 
-``` PUT /labels/{id} ``` (admin) edit label
+---
+## ``` PUT /labels/{id} ``` 
+### (admin) edit label
 
 Request body: same as POST
 
 Response status: '200 OK'
 
-``` DELETE /labels/{id} ``` (admin) delete label
+---
+## ``` DELETE /labels/{id} ``` 
+### (admin) delete label
 
 Response status: '204 No Content'
 
-### Authentication & Users
-```POST /auth/register``` register a new user
+---
+## Authentication & Users
+
+---
+## ```POST /auth/register``` 
+### register a new user
 
 Request body:
 ```
@@ -221,14 +282,12 @@ Request body:
 ```
 
 Response status: '201 Created'
-Response body:
-```
-{ "message": "User registered successfully", "userId": 1 }
-```
 
 Response status: '400 Bad Request' – invalid input
 
-``` POST /auth/login ```user login
+---
+## ``` POST /auth/login ```
+### user login
 
 Request body:
 ```
@@ -242,7 +301,9 @@ Response status: '200 OK'
 
 Response status: '401 Unauthorized' - wrong credentials
 
-```GET /users/me``` get current user profile
+---
+## ```GET /users/me``` 
+### get current user profile
 
 Response status: '200 OK'
 
@@ -257,7 +318,9 @@ Example response body:
 }
 ```
 
-``` PUT /users/me ``` update profile data
+---
+## ``` PUT /users/me ``` 
+### update profile data
 
 Request body:
 ```
@@ -266,8 +329,12 @@ Request body:
 
 Response status: '200 OK'
 
-### Reviews
-``` POST /albums/{id}/reviews ``` (authorized) add a review for an album
+---
+## Reviews
+
+---
+## ``` POST /albums/{id}/reviews ``` 
+### (authorized) add a review for an album
 
 Request body:
 ```
@@ -276,7 +343,9 @@ Request body:
 
 Response status: '201 Created'
 
-```GET /albums/{id}/reviews``` get reviews for an album
+---
+## ```GET /albums/{id}/reviews``` 
+### get reviews for an album
 
 Response status: '200 OK'
 Example response body: 
@@ -287,8 +356,12 @@ Example response body:
 ]
 ```
 
-### Cart & Orders
-```POST /cart``` (authorized) add album to cart
+---
+## Cart & Orders
+
+---
+## ```POST /carts/{id}/albums``` 
+### (authorized) add album to cart
 
 Request body:
 ```
@@ -297,31 +370,43 @@ Request body:
 
 Response status: '200 OK'
 
-```GET /cart``` (authorized) view cart
+---
+## ```GET /carts/{id}/albums``` 
+### (authorized) view cart
 
 Response status: '200 OK'
 
 Example response body:
 ```
 [
-  { "albumId": 1, "title": "Blurryface", "price": 45, "quantity": 1 }
+  { "albumId": 1, "title": "Blurryface", "price": 45, "quantity": 1 },
+  { "albumId": 2, "title": "Trench", "price": 50, "quantity": 2 }
 ]
 ```
 
-``` DELETE /cart/{albumId}``` (authorized) remove album from cart
+---
+## ``` DELETE /carts/{id}/albums/{albumId}``` 
+### (authorized) remove album from cart
 
 Response status: '204 No Content'
 
-```POST /orders``` (authorized) create order from cart
+---
+## ```POST /orders``` 
+### (authorized) create order from cart
 
 Response status: '201 Created'
 
-```GET /orders``` (authorized) view order history
+## ```GET /orders``` 
+### (authorized) view order history
 
 Response status: '200 OK'
 
-### About
-```GET /about``` about the shop (contacts, delivery, returns)
+---
+## About
+
+---
+## ```GET /about``` 
+### about the shop (contacts, delivery, returns)
 
 Response status: '200 OK'
 
@@ -334,4 +419,4 @@ Example response body:
 }
 ```
 
-![Database Scheme](scheme/database_diagram.png)
+![Database Scheme](scheme/db_scheme.png)
