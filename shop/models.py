@@ -77,3 +77,9 @@ class Review(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField()
     comment = models.TextField()
+
+
+class About(models.Model):
+    contacts = models.TextField()
+    delivery = models.TextField()
+    returns = models.TextField()

@@ -1,11 +1,12 @@
+from django.db.models import Q
 from django.http import Http404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from shop.models import Album, Artist, Label
-from shop.serializers import AlbumSerializer, TrackSerializer, ArtistSerializer, LabelSerializer
+from shop.models import Album, Artist, Label, About
+from shop.serializers import AlbumSerializer, TrackSerializer, ArtistSerializer, LabelSerializer, AboutSerializer
 
 
 @api_view(['GET'])
@@ -17,6 +18,27 @@ def index(request):
 class AlbumList(APIView):
     def get(self, request, format=None):
         albums = Album.objects.all()
+
+        search_query = request.query_params.get('search')
+        if search_query:
+            albums = albums.filter(
+                Q(title__icontains=search_query) |
+                Q(artist__name__icontains=search_query) |
+                Q(genre__icontains=search_query)
+            )
+
+        sort_param = request.query_params.get('sort')
+        if sort_param == 'price_asc':
+            albums = albums.order_by('price')
+        elif sort_param == 'price_desc':
+            albums = albums.order_by('-price')
+        elif sort_param == 'release_date_asc':
+            albums = albums.order_by('year')
+        elif sort_param == 'release_date_desc':
+            albums = albums.order_by('-year')
+        elif sort_param == 'genre':
+            albums = albums.order_by('genre')
+
         serializer = AlbumSerializer(albums, many=True)
         return Response(serializer.data)
 
@@ -148,3 +170,10 @@ class LabelDetail(APIView):
         label = self.get_object(pk)
         label.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class AboutView(APIView):
+    def get(self, request):
+        about = About.objects.first()
+        serializer = AboutSerializer(about)
+        return Response(serializer.data)
