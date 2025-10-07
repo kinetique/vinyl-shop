@@ -102,6 +102,10 @@ class ArtistDetail(APIView):
 
     def delete(self, request, pk, format=None):
         artist = self.get_object(pk)
+        if artist.albums.exists():
+            return Response({"error": "Cannot delete artist with existing albums."},
+                            status=status.HTTP_400_BAD_REQUEST
+                            )
         artist.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
