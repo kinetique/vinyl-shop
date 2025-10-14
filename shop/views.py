@@ -5,11 +5,13 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+import logging
 
 from shop.models import Album, Artist, Label, About, Review
 from shop.serializers import AlbumSerializer, TrackSerializer, ArtistSerializer, LabelSerializer, AboutSerializer, \
     ReviewSerializer
 
+logger = logging.getLogger(__name__)
 
 @api_view(['GET'])
 def index(request):

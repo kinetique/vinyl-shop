@@ -6,6 +6,7 @@ from users.serializers import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
+import logging
 
 
 class RegisterView(APIView):
