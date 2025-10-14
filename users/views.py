@@ -61,6 +61,7 @@ class UserProfileView(APIView):
         user.username = username
         user.email = email
         user.save()
+        Response({"username": user.username, "email": user.email}, status=status.HTTP_200_OK)
 
 
 class LogoutView(APIView):

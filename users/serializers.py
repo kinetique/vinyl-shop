@@ -31,6 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        validated_data.pop('password_check', None)
+
         password = validated_data.pop('password', None)
         first_name = validated_data.pop('first_name', '')
         last_name = validated_data.pop('last_name', '')

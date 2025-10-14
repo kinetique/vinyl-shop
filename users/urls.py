@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from views import RegisterView, LoginView, UserProfileView
+from users.views import RegisterView, LoginView, UserProfileView, LogoutView
 
 urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='register'),

@@ -1,13 +1,14 @@
 from django.db.models import Q
 from django.http import Http404
 from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from shop.models import Album, Artist, Label, About
-from shop.serializers import AlbumSerializer, TrackSerializer, ArtistSerializer, LabelSerializer, AboutSerializer
+from shop.models import Album, Artist, Label, About, Review
+from shop.serializers import AlbumSerializer, TrackSerializer, ArtistSerializer, LabelSerializer, AboutSerializer, \
+    ReviewSerializer
 
 
 @api_view(['GET'])
@@ -202,3 +203,27 @@ class AboutView(APIView):
         about = About.objects.first()
         serializer = AboutSerializer(about)
         return Response(serializer.data)
+
+
+class AlbumReviewsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_object_album(self, pk):
+        try:
+            return Album.objects.get(pk=pk)
+        except Album.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        album = self.get_object_album(pk)
+        reviews = Review.objects.filter(album=album)
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, pk, format=None):
+        album = self.get_object_album(pk)
+        serializer = ReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, album=album)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
