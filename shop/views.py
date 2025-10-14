@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.http import Http404
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -15,7 +16,7 @@ def index(request):
         return Response({'message': 'Hello World!'})
 
 
-class AlbumList(APIView):
+class AlbumListPublic(APIView):
     def get(self, request, format=None):
         albums = Album.objects.all()
 
@@ -42,6 +43,10 @@ class AlbumList(APIView):
         serializer = AlbumSerializer(albums, many=True)
         return Response(serializer.data)
 
+
+class AlbumListAdmin(APIView):
+    permission_classes = [IsAdminUser]
+
     def post(self, request, format=None):
         serializer = AlbumSerializer(data=request.data)
         if serializer.is_valid():
@@ -50,7 +55,7 @@ class AlbumList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AlbumDetail(APIView):
+class AlbumDetailPublic(APIView):
     def get_object(self, pk):
         try:
             return Album.objects.get(pk=pk)
@@ -61,6 +66,10 @@ class AlbumDetail(APIView):
         album = self.get_object(pk)
         serializer = AlbumSerializer(album)
         return Response(serializer.data)
+
+
+class AlbumDetailAdmin(APIView):
+    permission_classes = [IsAdminUser]
 
     def put(self, request, pk, format=None):
         album = self.get_object(pk)
@@ -88,11 +97,15 @@ class AlbumTracksView(APIView):
         return Response(serializer.data)
 
 
-class ArtistList(APIView):
+class ArtistListPublic(APIView):
     def get(self, request, format=None):
         artists = Artist.objects.all()
         serializer = ArtistSerializer(artists, many=True)
         return Response(serializer.data)
+
+
+class ArtistListAdmin(APIView):
+    permission_classes = [IsAdminUser]
 
     def post(self, request, format=None):
         serializer = ArtistSerializer(data=request.data)
@@ -102,7 +115,7 @@ class ArtistList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ArtistDetail(APIView):
+class ArtistDetailPublic(APIView):
     def get_object(self, pk):
         try:
             return Artist.objects.get(pk=pk)
@@ -113,6 +126,10 @@ class ArtistDetail(APIView):
         artist = self.get_object(pk)
         serializer = ArtistSerializer(artist)
         return Response(serializer.data)
+
+
+class ArtistDetailAdmin(APIView):
+    permission_classes = [IsAdminUser]
 
     def put(self, request, pk, format=None):
         artist = self.get_object(pk)
@@ -132,11 +149,15 @@ class ArtistDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class LabelList(APIView):
+class LabelListPublic(APIView):
     def get(self, request, format=None):
         labels = Label.objects.all()
         serializer = LabelSerializer(labels, many=True)
         return Response(serializer.data)
+
+
+class LabelListAdmin(APIView):
+    permission_classes = [IsAdminUser]
 
     def post(self, request, format=None):
         serializer = LabelSerializer(data=request.data)
@@ -146,7 +167,7 @@ class LabelList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LabelDetail(APIView):
+class LabelDetailPublic(APIView):
     def get_object(self, pk):
         try:
             return Label.objects.all().get(pk=pk)
@@ -157,6 +178,10 @@ class LabelDetail(APIView):
         label = self.get_object(pk)
         serializer = LabelSerializer(label)
         return Response(serializer.data)
+
+
+class LabelDetailAdmin(APIView):
+    permission_classes = [IsAdminUser]
 
     def put(self, request, pk, format=None):
         label = self.get_object(pk)
