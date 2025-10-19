@@ -13,6 +13,7 @@ from shop.serializers import AlbumSerializer, TrackSerializer, ArtistSerializer,
 
 logger = logging.getLogger(__name__)
 
+
 @api_view(['GET'])
 def index(request):
     if request.method == 'GET':
@@ -220,6 +221,7 @@ class AlbumReviewsView(APIView):
         album = self.get_object_album(pk)
         reviews = Review.objects.filter(album=album)
         serializer = ReviewSerializer(reviews, many=True)
+        logger.info(f"{len(reviews)} reviews for album {pk}")
         return Response(serializer.data)
 
     def post(self, request, pk, format=None):
@@ -227,5 +229,7 @@ class AlbumReviewsView(APIView):
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user, album=album)
+            logger.info(f"Review created for album {pk} by user {request.user.username}")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        logger.warning(f"Failed to create: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
