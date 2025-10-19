@@ -97,7 +97,7 @@ Response status: '200 OK'
 ]
 ```
 ---
-## ``` POST /albums ``` 
+## ``` POST admin/albums ``` 
 ### (admin) add a new album
 
 Request body:
@@ -131,7 +131,7 @@ Response body:
 }
 ```
 ---
-## ``` PUT /albums/{id} ``` 
+## ``` PUT admin/albums/{id} ``` 
 ### (admin) update album data
 
 Request body: same as POST
@@ -139,7 +139,7 @@ Request body: same as POST
 Response status: '200 OK'
 
 ---
-## ``` DELETE /albums/{id} ``` 
+## ``` DELETE admin/albums/{id} ``` 
 ### (admin) delete album
 
 Response status: '204 No Content'
@@ -180,7 +180,7 @@ Example response body:
 Response status: '404 Not Found' – artist does not exist
 
 ---
-## ```POST /artists``` 
+## ```POST admin/artists``` 
 ### (admin) add a new artist
 
 Request body:
@@ -190,7 +190,7 @@ Request body:
 Response status: '201 Created'
 
 ---
-## ``` PUT /artists/{id} ``` 
+## ``` PUT admin/artists/{id} ``` 
 ### (admin) edit artist
 
 Request body:
@@ -201,7 +201,7 @@ Request body:
 Response status: '200 OK'
 
 ---
-## ``` DELETE /artists/{id} ``` 
+## ``` DELETE admin/artists/{id} ``` 
 ### (admin) delete artist
 
 Response status: '204 No Content'
@@ -241,7 +241,7 @@ Example response body:
 Response status: '404 Not Found'
 
 ---
-## ``` POST /labels ``` 
+## ``` POST admin/labels ``` 
 ### (admin) add a new label
 
 Request body:
@@ -252,7 +252,7 @@ Request body:
 Response status: '201 Created'
 
 ---
-## ``` PUT /labels/{id} ``` 
+## ``` PUT admin/labels/{id} ``` 
 ### (admin) edit label
 
 Request body: same as POST
@@ -355,51 +355,6 @@ Example response body:
   { "user": "musiclover", "rating": 4, "comment": "Trench is amazing!" }
 ]
 ```
-
----
-## Cart & Orders
-
----
-## ```POST /carts/{id}/albums``` 
-### (authorized) add album to cart
-
-Request body:
-```
-{ "albumId": 1, "quantity": 1 }
-```
-
-Response status: '200 OK'
-
----
-## ```GET /carts/{id}/albums``` 
-### (authorized) view cart
-
-Response status: '200 OK'
-
-Example response body:
-```
-[
-  { "albumId": 1, "title": "Blurryface", "price": 45, "quantity": 1 },
-  { "albumId": 2, "title": "Trench", "price": 50, "quantity": 2 }
-]
-```
-
----
-## ``` DELETE /carts/{id}/albums/{albumId}``` 
-### (authorized) remove album from cart
-
-Response status: '204 No Content'
-
----
-## ```POST /orders``` 
-### (authorized) create order from cart
-
-Response status: '201 Created'
-
-## ```GET /orders``` 
-### (authorized) view order history
-
-Response status: '200 OK'
 
 ---
 ## About
