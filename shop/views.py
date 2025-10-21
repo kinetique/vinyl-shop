@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import Http404
 from rest_framework.decorators import api_view
@@ -226,6 +227,36 @@ class AlbumReviewsView(APIView):
 
     def post(self, request, pk, format=None):
         album = self.get_object_album(pk)
+
+        try:
+            from shop.models import Review
+            test_review = Review.objects.create(
+                user=request.user,
+                album=album,
+                rating=5,
+                comment="Test"
+            )
+            logger.info(f"Manual creation successful: {test_review.id}")
+            test_review.delete()
+        except Exception as e:
+            logger.error(f"Manual creation failed: {e}")
+
+        logger.info(f"User type: {type(request.user)}")
+        logger.info(f"User value: {request.user}")
+        logger.info(f"User id: {getattr(request.user, 'id', 'NO ID')}")
+
+        logger.info(f"Album type: {type(album)}")
+        logger.info(f"Album value: {album}")
+        logger.info(f"Album id: {album.id}")
+
+        if isinstance(request.user, str):
+            try:
+                user = User.objects.get(username=request.user)
+            except User.DoesNotExist:
+                return Response({"error": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                user = request.user
+
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user, album=album)

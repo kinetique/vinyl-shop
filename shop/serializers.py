@@ -34,7 +34,10 @@ class AboutSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+    album = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Review
-        fields = '__all__'
-        read_only_fields = ('user',)
+        fields = ['id', 'album', 'rating', 'comment', 'username']
+        read_only_fields = ['username', 'album']
