@@ -379,6 +379,19 @@ Example response body:
 shop\tests\test_albums_admin.py [ 57%] 
 shop\tests\test_reviews.py [100%] 
 
-================= 7 passed in 3.83s =================
+================ 7 passed in 3.83s ================
+
+# How to run tests
+1. Install dependencies
+``` 
+pip install -r requirements.txt
+```
+2. Run tests with pytest
+```
+pytest
+
+# Run tests with coverage
+coverage run -m pytest
+```
 
 ![Database Scheme](scheme/db_scheme.png)
