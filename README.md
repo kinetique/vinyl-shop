@@ -97,7 +97,7 @@ Response status: '200 OK'
 ]
 ```
 ---
-## ``` POST /albums ``` 
+## ``` POST adm/albums ``` 
 ### (admin) add a new album
 
 Request body:
@@ -131,7 +131,7 @@ Response body:
 }
 ```
 ---
-## ``` PUT /albums/{id} ``` 
+## ``` PUT adm/albums/{id} ``` 
 ### (admin) update album data
 
 Request body: same as POST
@@ -139,7 +139,7 @@ Request body: same as POST
 Response status: '200 OK'
 
 ---
-## ``` DELETE /albums/{id} ``` 
+## ``` DELETE adm/albums/{id} ``` 
 ### (admin) delete album
 
 Response status: '204 No Content'
@@ -180,7 +180,7 @@ Example response body:
 Response status: '404 Not Found' – artist does not exist
 
 ---
-## ```POST /artists``` 
+## ```POST adm/artists``` 
 ### (admin) add a new artist
 
 Request body:
@@ -190,7 +190,7 @@ Request body:
 Response status: '201 Created'
 
 ---
-## ``` PUT /artists/{id} ``` 
+## ``` PUT adm/artists/{id} ``` 
 ### (admin) edit artist
 
 Request body:
@@ -201,7 +201,7 @@ Request body:
 Response status: '200 OK'
 
 ---
-## ``` DELETE /artists/{id} ``` 
+## ``` DELETE adm/artists/{id} ``` 
 ### (admin) delete artist
 
 Response status: '204 No Content'
@@ -241,7 +241,7 @@ Example response body:
 Response status: '404 Not Found'
 
 ---
-## ``` POST /labels ``` 
+## ``` POST adm/labels ``` 
 ### (admin) add a new label
 
 Request body:
@@ -252,7 +252,7 @@ Request body:
 Response status: '201 Created'
 
 ---
-## ``` PUT /labels/{id} ``` 
+## ``` PUT adm/labels/{id} ``` 
 ### (admin) edit label
 
 Request body: same as POST
@@ -357,51 +357,6 @@ Example response body:
 ```
 
 ---
-## Cart & Orders
-
----
-## ```POST /carts/{id}/albums``` 
-### (authorized) add album to cart
-
-Request body:
-```
-{ "albumId": 1, "quantity": 1 }
-```
-
-Response status: '200 OK'
-
----
-## ```GET /carts/{id}/albums``` 
-### (authorized) view cart
-
-Response status: '200 OK'
-
-Example response body:
-```
-[
-  { "albumId": 1, "title": "Blurryface", "price": 45, "quantity": 1 },
-  { "albumId": 2, "title": "Trench", "price": 50, "quantity": 2 }
-]
-```
-
----
-## ``` DELETE /carts/{id}/albums/{albumId}``` 
-### (authorized) remove album from cart
-
-Response status: '204 No Content'
-
----
-## ```POST /orders``` 
-### (authorized) create order from cart
-
-Response status: '201 Created'
-
-## ```GET /orders``` 
-### (authorized) view order history
-
-Response status: '200 OK'
-
----
 ## About
 
 ---
@@ -417,6 +372,26 @@ Example response body:
   "delivery": "2-5 days worldwide",
   "returns": "14 days policy"
 }
+```
+
+# Tests coverage
+
+shop\tests\test_albums_admin.py [ 57%] 
+shop\tests\test_reviews.py [100%] 
+
+================ 7 passed in 3.83s ================
+
+# How to run tests
+1. Install dependencies
+``` 
+pip install -r requirements.txt
+```
+2. Run tests with pytest
+```
+pytest
+
+# Run tests with coverage
+coverage run -m pytest
 ```
 
 ![Database Scheme](scheme/db_scheme.png)
