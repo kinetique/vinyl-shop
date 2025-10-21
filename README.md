@@ -97,7 +97,7 @@ Response status: '200 OK'
 ]
 ```
 ---
-## ``` POST admin/albums ``` 
+## ``` POST adm/albums ``` 
 ### (admin) add a new album
 
 Request body:
@@ -131,7 +131,7 @@ Response body:
 }
 ```
 ---
-## ``` PUT admin/albums/{id} ``` 
+## ``` PUT adm/albums/{id} ``` 
 ### (admin) update album data
 
 Request body: same as POST
@@ -139,7 +139,7 @@ Request body: same as POST
 Response status: '200 OK'
 
 ---
-## ``` DELETE admin/albums/{id} ``` 
+## ``` DELETE adm/albums/{id} ``` 
 ### (admin) delete album
 
 Response status: '204 No Content'
@@ -180,7 +180,7 @@ Example response body:
 Response status: '404 Not Found' – artist does not exist
 
 ---
-## ```POST admin/artists``` 
+## ```POST adm/artists``` 
 ### (admin) add a new artist
 
 Request body:
@@ -190,7 +190,7 @@ Request body:
 Response status: '201 Created'
 
 ---
-## ``` PUT admin/artists/{id} ``` 
+## ``` PUT adm/artists/{id} ``` 
 ### (admin) edit artist
 
 Request body:
@@ -201,7 +201,7 @@ Request body:
 Response status: '200 OK'
 
 ---
-## ``` DELETE admin/artists/{id} ``` 
+## ``` DELETE adm/artists/{id} ``` 
 ### (admin) delete artist
 
 Response status: '204 No Content'
@@ -241,7 +241,7 @@ Example response body:
 Response status: '404 Not Found'
 
 ---
-## ``` POST admin/labels ``` 
+## ``` POST adm/labels ``` 
 ### (admin) add a new label
 
 Request body:
@@ -252,7 +252,7 @@ Request body:
 Response status: '201 Created'
 
 ---
-## ``` PUT admin/labels/{id} ``` 
+## ``` PUT adm/labels/{id} ``` 
 ### (admin) edit label
 
 Request body: same as POST
@@ -373,5 +373,12 @@ Example response body:
   "returns": "14 days policy"
 }
 ```
+
+# Tests coverage
+
+shop\tests\test_albums_admin.py [ 57%] 
+shop\tests\test_reviews.py [100%] 
+
+================= 7 passed in 3.83s =================
 
 ![Database Scheme](scheme/db_scheme.png)

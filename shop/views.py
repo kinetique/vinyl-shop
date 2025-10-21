@@ -76,6 +76,12 @@ class AlbumDetailPublic(APIView):
 class AlbumDetailAdmin(APIView):
     permission_classes = [IsAdminUser]
 
+    def get_object(self, pk):
+        try:
+            return Album.objects.get(pk=pk)
+        except Album.DoesNotExist:
+            raise Http404
+
     def put(self, request, pk, format=None):
         album = self.get_object(pk)
         serializer = AlbumSerializer(album, data=request.data)
@@ -136,6 +142,12 @@ class ArtistDetailPublic(APIView):
 class ArtistDetailAdmin(APIView):
     permission_classes = [IsAdminUser]
 
+    def get_object(self, pk):
+        try:
+            return Album.objects.get(pk=pk)
+        except Album.DoesNotExist:
+            raise Http404
+
     def put(self, request, pk, format=None):
         artist = self.get_object(pk)
         serializer = ArtistSerializer(artist, data=request.data)
@@ -187,6 +199,12 @@ class LabelDetailPublic(APIView):
 
 class LabelDetailAdmin(APIView):
     permission_classes = [IsAdminUser]
+
+    def get_object(self, pk):
+        try:
+            return Album.objects.get(pk=pk)
+        except Album.DoesNotExist:
+            raise Http404
 
     def put(self, request, pk, format=None):
         label = self.get_object(pk)

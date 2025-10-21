@@ -13,12 +13,12 @@ urlpatterns = [
     path('artists/<int:pk>/', views.ArtistDetailPublic.as_view(), name='artist-detail-public'),
     path('about/', views.AboutView.as_view(), name='about'),
 
-    path('admin/labels/', views.LabelListAdmin.as_view(), name='label-list-admin'),
-    path('admin/labels/<int:pk>/', views.LabelDetailAdmin.as_view(), name='label-detail-admin'),
-    path('admin/albums/', views.AlbumListAdmin.as_view(), name='album-list-admin'),
-    path('admin/albums/<int:pk>/', views.AlbumDetailAdmin.as_view(), name='album-detail-admin'),
-    path('admin/artists/', views.ArtistListAdmin.as_view(), name='artist-list-admin'),
-    path('admin/artists/<int:pk>/', views.ArtistDetailAdmin.as_view(), name='artist-detail-admin'),
+    path('adm/labels/', views.LabelListAdmin.as_view(), name='label-list-admin'),
+    path('adm/labels/<int:pk>/', views.LabelDetailAdmin.as_view(), name='label-detail-admin'),
+    path('adm/albums/', views.AlbumListAdmin.as_view(), name='album-list-admin'),
+    path('adm/albums/<int:pk>/', views.AlbumDetailAdmin.as_view(), name='album-detail-admin'),
+    path('adm/artists/', views.ArtistListAdmin.as_view(), name='artist-list-admin'),
+    path('adm/artists/<int:pk>/', views.ArtistDetailAdmin.as_view(), name='artist-detail-admin'),
 
     path('albums/<int:pk>/reviews/', views.AlbumReviewsView.as_view(), name='album-reviews'),
 
